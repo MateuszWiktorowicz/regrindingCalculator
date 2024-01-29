@@ -98,19 +98,9 @@ function populateDiameterOption(toolDiameterId, edgesValue) {
     }
 }
 
-$("#cuttingEdges").change(function() {
-    var edgesValue = $(this).val();
-
-    $(".diameterOption").remove();
-    populateDiameterOption("endMillCuttingDiameter", edgesValue);
-    $("#endMillCuttingDiameter").prop('disabled', false);
-
-})
 
 function calculateRegrindingPrice(edgesValue, diameter) {
-    return machiningTimeCost * calculateRegrindingTime(edgesValue, diameter);
-
-    
+    return machiningTimeCost * calculateRegrindingTime(edgesValue, diameter);    
 }
 
 function calculateRegrindingTime(edgesValue, diameter) {
@@ -123,7 +113,6 @@ function calculateRegrindingTime(edgesValue, diameter) {
     if (($("#bodyRegrindingOption").is(":checked"))) {
         regrindingTime += grindingTimes[edgesValue][toolIndex].bodyTime;
     }
-    console.log(regrindingTime);
 
     return regrindingTime;
 }
@@ -137,6 +126,15 @@ function findToolIndexByDiamaterAndTeethNumber(edgesValue, diameter) {
     }
     return -1;
 }
+
+$("#cuttingEdges").change(function() {
+    var edgesValue = $(this).val();
+
+    $(".diameterOption").remove();
+    populateDiameterOption("endMillCuttingDiameter", edgesValue);
+    $("#endMillCuttingDiameter, #faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").prop('disabled', false);
+
+})
 
 $("#faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").change(function() {
     var price =  calculateRegrindingPrice($("#cuttingEdges").val(), parseInt($("#endMillCuttingDiameter").val()));
