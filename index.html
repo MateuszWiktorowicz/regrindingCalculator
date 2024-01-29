@@ -4,8 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkulator ostrzenia</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="./styles.css" rel="stylesheet" />
 </head>
 <body>
+<main>
+    <div class="d-flex flex-column align-items-center">
+        <form class="bg-white rounded m-5 p-5">
+            <div class="mb-3 text-center">
+                <h1>Kalkulator ostrzenia Mastermet</h1>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="mb-3"> 
+                    <div class="mb-3">Rodzaj czoła do naostrzenia:</div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="endMill" id="endMillFace" value="endMill" checked>
+                        <label class="form-check-label" for="endMillFace">
+                          Frez Walcowy
+                        </label>
+                      </div>
+                </div>
+                <div class="d-flex mb-4 flex-column flex-md-row gap-3 justify-content-between">
+                    <div class="d-flex flex-column ">
+                        <div class="mb-3">
+                        <select class="form-select" aria-label="cuttingEdges">
+                            <option selected>Wybierz ilość ostrzy</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" aria-label="cuttingDiameter" disabled>
+                                <option selected>Wybierz średnicę</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                              </select>
+                            </div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div class="mb-3">
+                            <input type="number" class="form-control" id="quantity" aria-describedby="quantityText" min="1" value="1">
+                            <div id="quantityText" class="form-text">Podaj ilość narzędzi do ostrzenia.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Cena</label>
+                            <input type="number" class="form-control" id="price" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="value" class="form-label">Wartość</label>
+                            <input type="number" class="form-control" id="value" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="discount" class="form-label">Rabat [%]:</label>
+                            <input type="number" class="form-control" id="discount" min="0" max="10" value="0">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="valueDiscounted" class="form-label">Wartość po rabacie:</label>
+                            <input type="number" class="form-control" id="valueDiscounted" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success">Dodaj do oferty</button>
+                <button type="reset" class="btn btn-danger">Resetuj</button>
+            </div>
+        </form>
+    </div>
+</main>
     
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="./index.js"></script>
 </body>
 </html>
