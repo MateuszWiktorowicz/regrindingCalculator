@@ -67,4 +67,13 @@ const grindingTimes = {
         {dia: 18, faceTime: 16, bodyTime: 29},
         {dia: 20, faceTime: 16, bodyTime: 30},
     ],
+
+    "Z9" : [
+        {dia: 10, faceTime: 13, bodyTime: 26},
+        {dia: 12, faceTime: 14, bodyTime: 27},
+        {dia: 14, faceTime: 14, bodyTime: 28},
+        {dia: 16, faceTime: 15, bodyTime: 30},
+        {dia: 18, faceTime: 16, bodyTime: 31},
+        {dia: 20, faceTime: 16, bodyTime: 32},
+    ],
 };
