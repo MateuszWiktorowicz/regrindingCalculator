@@ -1,5 +1,5 @@
 const grindingTimes = {
-    "Z2" : [
+    "EM2" : [
         {dia: 5, faceTime: 6, bodyTime: 11},
         {dia: 6, faceTime: 7, bodyTime: 12},
         {dia: 8, faceTime: 7, bodyTime: 13},
@@ -11,7 +11,7 @@ const grindingTimes = {
         {dia: 20, faceTime: 11, bodyTime: 17},
     ],
 
-    "Z3" : [
+    "EM3" : [
         {dia: 5, faceTime: 7, bodyTime: 12},
         {dia: 6, faceTime: 8, bodyTime: 13},
         {dia: 8, faceTime: 8, bodyTime: 14},
@@ -23,7 +23,7 @@ const grindingTimes = {
         {dia: 20, faceTime: 12, bodyTime: 19},
     ],
 
-    "Z4" : [
+    "EM4" : [
         {dia: 5, faceTime: 7, bodyTime: 13},
         {dia: 6, faceTime: 8, bodyTime: 14},
         {dia: 8, faceTime: 8, bodyTime: 15},
@@ -35,7 +35,7 @@ const grindingTimes = {
         {dia: 20, faceTime: 12, bodyTime: 20},
     ],
 
-    "Z5" : [
+    "EM5" : [
         {dia: 5, faceTime: 8, bodyTime: 16},
         {dia: 6, faceTime: 9, bodyTime: 17},
         {dia: 8, faceTime: 9, bodyTime: 19},
@@ -47,7 +47,7 @@ const grindingTimes = {
         {dia: 20, faceTime: 12, bodyTime: 24},
     ],
 
-    "Z6" : [
+    "EM6" : [
         {dia: 5, faceTime: 8, bodyTime: 17},
         {dia: 6, faceTime: 9, bodyTime: 18},
         {dia: 8, faceTime: 10, bodyTime: 20},
@@ -59,7 +59,7 @@ const grindingTimes = {
         {dia: 20, faceTime: 14, bodyTime: 27},
     ],
 
-    "Z8" : [
+    "EM8" : [
         {dia: 10, faceTime: 13, bodyTime: 24},
         {dia: 12, faceTime: 14, bodyTime: 25},
         {dia: 14, faceTime: 14, bodyTime: 26},
@@ -68,7 +68,7 @@ const grindingTimes = {
         {dia: 20, faceTime: 16, bodyTime: 30},
     ],
 
-    "Z9" : [
+    "EM9" : [
         {dia: 10, faceTime: 13, bodyTime: 26},
         {dia: 12, faceTime: 14, bodyTime: 27},
         {dia: 14, faceTime: 14, bodyTime: 28},
@@ -77,3 +77,18 @@ const grindingTimes = {
         {dia: 20, faceTime: 16, bodyTime: 32},
     ],
 };
+
+
+function populateDiameterOption(selectDiameterId, fluteId) {
+    const $selectElement = $("#" + selectDiameterId);
+    const optionValues = grindingTimes[fluteId];
+
+    if ($selectElement.length) {
+        $.each(optionValues, function(index, value) {
+            $selectElement.append($("<option>", {
+                value: value.dia,
+                text: value.dia
+            }));
+        });
+    }
+}
