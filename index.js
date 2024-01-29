@@ -138,8 +138,8 @@ $("#cuttingEdges").change(function() {
 
 $("#faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").change(function() {
     var price =  calculateRegrindingPrice($("#cuttingEdges").val(), parseInt($("#endMillCuttingDiameter").val()));
-    $("#price").val(price / (1 - margin));
-    $("#value").val(price / (1 - margin) * parseInt($("#quantity").val()));
+    $("#price").val((price / (1 - margin)).toFixed(2));
+    $("#value").val((price / (1 - margin) * parseInt($("#quantity").val())).toFixed(2));
     
     var discountValue = parseInt($("#discount").val()) / 100;
     $("#valueDiscounted").val(((price * (1 - discountValue) * parseInt($("#quantity").val())) / (1 - margin)).toFixed(2));
