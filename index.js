@@ -78,6 +78,9 @@ const grindingTimes = {
     ],
 };
 
+const machiningTimeCost = 3;
+const margin = 0.4;
+
 
 function populateDiameterOption(toolDiameterId, edgesValue) {
     const $selectElement = $("#" + toolDiameterId);
@@ -103,3 +106,44 @@ $("#cuttingEdges").change(function() {
     $("#endMillCuttingDiameter").prop('disabled', false);
 
 })
+
+function calculateRegrindingPrice(edgesValue, diameter) {
+    return machiningTimeCost * calculateRegrindingTime(edgesValue, diameter);
+
+    
+}
+
+function calculateRegrindingTime(edgesValue, diameter) {
+    var regrindingTime = 0;
+    var toolIndex = findToolIndexByDiamaterAndTeethNumber(edgesValue, diameter);
+    
+    if ($("#faceRegrindingOption").is(":checked")) {
+        regrindingTime += grindingTimes[edgesValue][toolIndex].faceTime;
+    }  
+    if (($("#bodyRegrindingOption").is(":checked"))) {
+        regrindingTime += grindingTimes[edgesValue][toolIndex].bodyTime;
+    }
+    console.log(regrindingTime);
+
+    return regrindingTime;
+}
+
+function findToolIndexByDiamaterAndTeethNumber(edgesValue, diameter) {
+    const tools = grindingTimes[edgesValue];
+    for (var i = 0; i < tools.length; i++) {
+        if (tools[i].dia === diameter) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+$("#faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").change(function() {
+    var price =  calculateRegrindingPrice($("#cuttingEdges").val(), parseInt($("#endMillCuttingDiameter").val()));
+    $("#price").val(price / (1 - margin));
+    $("#value").val(price / (1 - margin) * parseInt($("#quantity").val()));
+    
+    var discountValue = parseInt($("#discount").val()) / 100;
+    $("#valueDiscounted").val(((price * (1 - discountValue) * parseInt($("#quantity").val())) / (1 - margin)).toFixed(2));
+})
+
