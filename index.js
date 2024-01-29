@@ -79,11 +79,13 @@ const grindingTimes = {
 };
 
 
-function populateDiameterOption(selectDiameterId, fluteId) {
-    const $selectElement = $("#" + selectDiameterId);
-    const optionValues = grindingTimes[fluteId];
+function populateDiameterOption(toolDiameterId, edgesValue) {
+    const $selectElement = $("#" + toolDiameterId);
+    const optionValues = grindingTimes[edgesValue];
 
     if ($selectElement.length) {
+        $selectElement.empty();
+
         $.each(optionValues, function(index, value) {
             $selectElement.append($("<option>", {
                 value: value.dia,
@@ -92,3 +94,12 @@ function populateDiameterOption(selectDiameterId, fluteId) {
         });
     }
 }
+
+$("#cuttingEdges").change(function() {
+    var edgesValue = $(this).val();
+
+    $(".diameterOption").remove();
+    populateDiameterOption("endMillCuttingDiameter", edgesValue);
+    $("#endMillCuttingDiameter").prop('disabled', false);
+
+})
