@@ -56,22 +56,15 @@ function getToolsGeometries($db) {
                 <div class="d-flex mb-4 flex-column flex-md-row gap-3 justify-content-between mt-3">
                     <div class="d-flex flex-column ">
                         <div class="mb-3">
-                        <label for="cuttingEdges" class="form-label">Liczba ostrzy</label>
-                        <select class="form-select" aria-label="cuttingEdges" id="cuttingEdges" disabled>
+                        <label for="flutes" class="form-label">Liczba ostrzy</label>
+                        <select class="form-select" aria-label="flutes" id="flutes">
                             <option disabled selected>Wybierz ilość ostrzy</option>
-                            <option value="EM2">2</option>
-                            <option value="EM3">3</option>
-                            <option value="EM4">4</option>
-                            <option value="EM5">5</option>
-                            <option value="EM6">6</option>
-                            <option value="EM8">8</option>
-                            <option value="EM9">9</option>
                           </select>
                           <div id="cuttingEdges" class="form-text">Wybranie ilości ostrzy odblokowuje formularz.</div>
                         </div>
                         <div class="mb-3">
-                            <label for="endMillCuttingDiameter" class="form-label">Średnica</label>
-                            <select class="form-select" aria-label="endMillCuttingDiameter" id="endMillCuttingDiameter" disabled>
+                            <label for="toolDiameter" class="form-label">Średnica</label>
+                            <select class="form-select" aria-label="toolDiameter" id="toolDiameter" disabled>
                                 <option disabled selected>Wybierz średnicę</option>
                               </select>
                         </div>
