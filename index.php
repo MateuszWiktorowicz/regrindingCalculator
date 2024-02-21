@@ -1,3 +1,35 @@
+<?php
+session_start();
+
+require_once 'database.php';
+
+try {
+    $toolsGeometries = json_encode(getToolsGeometries($db));
+    
+    echo '<script>';
+    echo 'sessionStorage.setItem("toolsGeometries", JSON.stringify(' . $toolsGeometries . '));';
+    echo '</script>';
+} catch (PDOException $error) {
+    echo $error->getMessage();
+}
+
+function getToolsGeometries($db) {
+    $query = $db->query("
+        SELECT 
+            tt.name,
+            d.diameter,
+            f.flutes
+        FROM
+            tool_geometry AS tg
+        INNER JOIN diameter AS d ON d.id = tg.id_diameter
+        INNER JOIN flutes_number AS f ON f.id = tg.id_flutes_number
+        INNER JOIN tool_type AS tt ON tt.id = tg.id_tool_type
+    ");
+
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
