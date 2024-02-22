@@ -111,5 +111,11 @@ $("#flutes").change(function() {
 })
 
 $("#toolDiameter").change(function() {
-    $("#faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").prop('disabled', false);
+    var toolType = $('input[name="toolType"]:checked').val();
+    $("#faceRegrindingOption, #quantity, #discount").prop('disabled', false);
+
+    if (toolType === "Frez Walcowy" || toolType === "Frez Promieniowy") {
+        $("#bodyRegrindingOption, #quantity, #discount").prop('disabled', false);
+    }
+    
 })
