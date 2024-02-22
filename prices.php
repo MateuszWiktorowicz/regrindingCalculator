@@ -4,26 +4,29 @@ session_start();
 
 require_once 'database.php';
 
-/*
+$costPerMinute = 3;
+$margin = 0.4;
+
 $toolType = $_POST['toolType'];
 $flutesNumber = $_POST['flutesNumber'];
 $toolDiameter = $_POST['toolDiameter'];
-*/
 
-$toolType = "Frez Walcowy";
-$flutesNumber = 2;
-$toolDiameter = 8;
+$regrindingPrices = array();
 try {
    $toolId = getToolGeometryId($db, $toolType, $toolDiameter, $flutesNumber);
 
    $faceRegrindingTime = getRegrindingTime($db, $toolId, 'face_grinding_times');
+   $faceRegrindingPrice = ($faceRegrindingTime * $costPerMinute) / (1 - $margin);
+   $regrindingPrices[] = $faceRegrindingPrice;
    
    if ($toolType == "Frez Walcowy" || $toolType == "Frez Promieniowy") {
     $bodyRegrindingTime = getRegrindingTime($db, $toolId, 'periphery_grinding_times_2d_tool');
 
-    echo $bodyRegrindingTime;
+    $bodyRegrindingPrice = ($bodyRegrindingTime * $costPerMinute) / (1 - $margin);
+    $regrindingPrices[] = $bodyRegrindingPrice;
    }
 
+   echo json_encode(['status' => 'success', 'regrindingPrices' => $regrindingPrices]);
 } catch (PDOException $error) {
     echo $error->getMessage();
 }

@@ -99,6 +99,7 @@ $("#radioToolTypesContainer").change(function() {
     $('#toolDiameter').prop('selectedIndex', 0);
     $("#toolDiameter, #faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").prop('disabled', true);
     $('#faceRegrindingOption, #bodyRegrindingOption').prop('checked', false).prop('disabled', true);
+    sessionStorage.removeItem('regrindingPrices');
     populateFlutes();
     
     
@@ -106,6 +107,8 @@ $("#radioToolTypesContainer").change(function() {
 
 $("#flutes").change(function() {
     $(".toolDiameter").remove();
+    $('#toolDiameter').prop('selectedIndex', 0);
+    sessionStorage.removeItem('regrindingPrices');
     populateDiameters();
     $("#toolDiameter").prop('disabled', false);
 })
