@@ -93,32 +93,4 @@ function populateDiameters() {
 populateRadioToolTypes();
 populateFlutes();
 
-$("#radioToolTypesContainer").change(function() {
-    $(".flutes").remove();
-    $('#flutes').prop('selectedIndex', 0);
-    $('#toolDiameter').prop('selectedIndex', 0);
-    $("#toolDiameter, #faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").prop('disabled', true);
-    $('#faceRegrindingOption, #bodyRegrindingOption').prop('checked', false).prop('disabled', true);
-    sessionStorage.removeItem('regrindingPrices');
-    populateFlutes();
-    
-    
-})
 
-$("#flutes").change(function() {
-    $(".toolDiameter").remove();
-    $('#toolDiameter').prop('selectedIndex', 0);
-    sessionStorage.removeItem('regrindingPrices');
-    populateDiameters();
-    $("#toolDiameter").prop('disabled', false);
-})
-
-$("#toolDiameter").change(function() {
-    var toolType = $('input[name="toolType"]:checked').val();
-    $("#faceRegrindingOption, #quantity, #discount").prop('disabled', false);
-
-    if (toolType === "Frez Walcowy" || toolType === "Frez Promieniowy") {
-        $("#bodyRegrindingOption, #quantity, #discount").prop('disabled', false);
-    }
-    
-})
