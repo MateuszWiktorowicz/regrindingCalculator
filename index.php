@@ -43,7 +43,7 @@ function getToolsGeometries($db) {
 <body>
 <main>
     <div class="d-flex flex-column align-items-center">
-        <form class="bg-white rounded m-5 p-5">
+        <form class="bg-white rounded m-5 p-5" id="regrindForm">
             <div class="mb-3 text-center">
                 <h1>Kalkulator ostrzenia Mastermet</h1>
             </div>

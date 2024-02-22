@@ -91,15 +91,25 @@ function populateDiameters() {
 }
 
 populateRadioToolTypes();
+populateFlutes();
 
 $("#radioToolTypesContainer").change(function() {
     $(".flutes").remove();
-    populateFlutes()
+    $('#flutes').prop('selectedIndex', 0);
+    $('#toolDiameter').prop('selectedIndex', 0);
     $("#toolDiameter, #faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").prop('disabled', true);
+    $('#faceRegrindingOption, #bodyRegrindingOption').prop('checked', false).prop('disabled', true);
+    populateFlutes();
+    
+    
 })
 
 $("#flutes").change(function() {
     $(".toolDiameter").remove();
     populateDiameters();
-    $("#toolDiameter, #faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").prop('disabled', false);
+    $("#toolDiameter").prop('disabled', false);
+})
+
+$("#toolDiameter").change(function() {
+    $("#faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount").prop('disabled', false);
 })
