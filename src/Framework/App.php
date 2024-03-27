@@ -17,11 +17,14 @@ class App
 
     public function run()
     {
-        dd("app is running");
+        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        $this->router->dispatch($path, $method);
     }
 
-    public function addRoute(string $path, string $method)
+    public function get(string $path, array $controller)
     {
-        $this->router->addRoute($path, $method);
+        $this->router->addRoute($path, 'GET', $controller);
     }
 }
