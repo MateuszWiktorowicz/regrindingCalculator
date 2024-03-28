@@ -1,0 +1,24 @@
+{
+    "name": "wikto/regrinding-calculator",
+    "description": "regrinding price calculator app",
+    "type": "no",
+    "license": "no",
+    "authors": [
+        {
+            "name": "MateuszWiktorowicz",
+            "email": "83886002+MateuszWiktorowicz@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "src/Framework",
+            "App\\" : "src/App"
+        },
+        "files": [
+            "src/App/Config/Routes.php"
+        ]
+    }
+}
