@@ -1,8 +1,13 @@
 <?php
 
+
 declare(strict_types=1);
 
+
+
 namespace App\Controllers;
+
+session_start();
 
 use App\Services\CalculatorService;
 use Framework\TemplateEngine;
@@ -18,17 +23,16 @@ class HomeController
 
     public function home()
     {
-        echo $this->view->render("/index.php");
+        $priceList = $this->getPriceList();
+        $encodedPriceList = json_encode($priceList);
+
+        $_SESSION['regrindingPrices'] = $encodedPriceList;
+
+        echo $this->view->render("/index.php", ['regrindingPrices' => $encodedPriceList]);
     }
 
     public function getPriceList()
     {
-        $priceList =  $this->calculatorService->getPriceList();
-
-        $priceListJson = json_encode($priceList);
-
-        header('Content-Type: application/json');
-
-        echo $priceListJson;
+        return $this->calculatorService->getPriceList();
     }
 }
