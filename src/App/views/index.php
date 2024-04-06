@@ -7,7 +7,6 @@
     <title>Kalkulator ostrzenia</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="./styles.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -48,7 +47,7 @@
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="bodyRegrindingOption" value="" disabled>
-                                    <label class="form-check-label" for="bodyRegrindingOption">Ostrzenie obwodu</label>
+                                    <label class="form-check-label" for="bodyRegrindingOption">Ostrzenie czoła oraz obwodu</label>
                                 </div>
                             </div>
 
@@ -88,11 +87,17 @@
         </div>
     </main>
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="./index.js"></script>
-    <script src="./settings.js"></script>
+    <script src="assets/js/priceList.js"></script>
+    <script>
+        $(document).ready(function() {
+            var regrindingPricesData = <?php echo json_encode($regrindingPrices); ?>;
+            sessionStorage.setItem('regrindingPrices', regrindingPricesData);
+        });
+    </script>
+
+
 </body>
 
 </html>

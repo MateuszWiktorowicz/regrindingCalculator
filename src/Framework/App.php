@@ -1,10 +1,11 @@
 <?php
 
+#This class is for preparing the framework tools
+
 declare(strict_types=1);
 
 namespace Framework;
 
-use Framework\Router;
 
 class App
 {
@@ -30,8 +31,38 @@ class App
         $this->router->dispatch($path, $method, $this->container);
     }
 
-    public function get(string $path, array $controller)
+    public function get(string $path, array $controller): App
     {
-        $this->router->addRoute($path, 'GET', $controller);
+        $this->router->addRoute('GET', $path, $controller);
+
+        return $this;
+    }
+    public function addMiddleware(string $middleware)
+    {
+        $this->router->addMiddleware($middleware);
+    }
+
+    public function post(string $path, array $controller): App
+    {
+        $this->router->addRoute('POST', $path, $controller);
+
+        return $this;
+    }
+
+    public function delete(string $path, array $controller): App
+    {
+        $this->router->addRoute('DELETE', $path, $controller);
+
+        return $this;
+    }
+
+    public function add(string $middleware)
+    {
+        $this->router->addRouteMiddleware($middleware);
+    }
+
+    public function setErrorHandler(array $controller)
+    {
+        $this->router->setErrorHandler($controller);
     }
 }
