@@ -7,6 +7,7 @@
     <title>Kalkulator ostrzenia</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="assets/css/main.css" rel="stylesheet" >
 </head>
 
 <body>
@@ -23,7 +24,7 @@
                         </div>
                     </div>
                     <div class="d-flex mb-4 flex-column flex-md-row gap-3 justify-content-between mt-3">
-                        <div class="d-flex flex-column ">
+                        <div class="d-flex flex-column">
                             <div class="mb-3">
                                 <label for="flutes" class="form-label">Liczba ostrzy</label>
                                 <select class="form-select" aria-label="flutes" id="flutes">
@@ -31,24 +32,38 @@
                                 </select>
                                 <div id="cuttingEdges" class="form-text">Wybranie ilości ostrzy odblokowuje formularz.</div>
                             </div>
-                            <div class="mb-3">
+                            <div class="d-flex flex-column flex-md-row gap-3">
+                            <div class="mb-3 col-9">
                                 <label for="toolDiameter" class="form-label">Średnica</label>
                                 <select class="form-select" aria-label="toolDiameter" id="toolDiameter" disabled>
                                     <option disabled selected>Wybierz średnicę</option>
                                 </select>
                             </div>
-                            <div>
+                            <div class="mb-3 col-3 d-none" id="radiusContainer">
+                                <label for="radius" class="form-label">Promień</label>
+                                <input type="number" class="form-control" id="radius" min="0.1" value="1" step="0.01" disabled>
+                            </div>
+                            </div>
+                            <div class="mb-3">
                                 <div class="m-3">
                                     Wybierz elementy geometrii do naostrzenia
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="faceRegrindingOption" value="faceRegrindingOption" disabled>
-                                    <label class="form-check-label" for="faceRegrindingOption">Ostrzenie czoła</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="bodyRegrindingOption" value="" disabled>
-                                    <label class="form-check-label" for="bodyRegrindingOption">Ostrzenie czoła oraz obwodu</label>
-                                </div>
+        <input class="form-check-input" type="radio" name="geometryOption" id="faceRegrindingOption" value="faceRegrindingOption" disabled>
+        <label class="form-check-label" for="faceRegrindingOption">Ostrzenie czoła</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="geometryOption" id="bodyRegrindingOption" value="bodyRegrindingOption" disabled>
+        <label class="form-check-label" for="bodyRegrindingOption">Ostrzenie czoła oraz obwodu</label>
+    </div>
+                            </div>
+                            <div class="d-flex flex-column flex-md-row gap-3">
+                            <div class="mb-3">
+                                <label for="coating" class="form-label">Pokrycie</label>
+                                <select class="form-select" aria-label="coating" id="coating" disabled>
+                                    <option  selected>Brak pokrycia</option>
+                                </select>
+                            </div>
                             </div>
 
 
@@ -93,7 +108,10 @@
     <script>
         $(document).ready(function() {
             var regrindingPricesData = <?php echo json_encode($regrindingPrices); ?>;
+            var coatingPricesData = <?php echo json_encode($coatingPrices); ?>;
+
             sessionStorage.setItem('regrindingPrices', regrindingPricesData);
+            sessionStorage.setItem('coatingPrices', coatingPricesData);
         });
     </script>
 

@@ -24,15 +24,23 @@ class HomeController
     public function home()
     {
         $priceList = $this->getPriceList();
+        $coatingPriceList = $this->getCoatingPriceList();
+
         $encodedPriceList = json_encode($priceList);
+        $encodedCoatingPriceList = json_encode($coatingPriceList);
 
         $_SESSION['regrindingPrices'] = $encodedPriceList;
 
-        echo $this->view->render("/index.php", ['regrindingPrices' => $encodedPriceList]);
+        echo $this->view->render("/index.php", ['regrindingPrices' => $encodedPriceList, 'coatingPrices' => $encodedCoatingPriceList]);
     }
 
     public function getPriceList()
     {
         return $this->calculatorService->getPriceList();
+    }
+
+    public function getCoatingPriceList()
+    {
+        return $this->calculatorService->getCoatingPriceList();
     }
 }

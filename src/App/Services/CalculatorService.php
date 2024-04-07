@@ -31,4 +31,21 @@ class CalculatorService
 
         return $priceList;
     }
+
+    public function getCoatingPriceList()
+    {
+        $coatingPriceList = $this->db->query(
+            "SELECT
+                ct.mastermet_code AS code,
+                ct.mastermet_name AS name,
+                ct.coating_composition AS composition,
+                d.diameter AS diameter,
+                cp.price AS price
+            FROM coating_price AS cp
+            INNER JOIN coating_type AS ct ON ct.id = cp.id_coating
+            INNER JOIN diameter AS d ON d.id = cp.id_diameter"
+        )->findAll();
+
+        return $coatingPriceList;
+    }
 }
