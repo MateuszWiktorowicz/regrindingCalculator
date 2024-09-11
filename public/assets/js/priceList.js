@@ -51,7 +51,6 @@ function separateUniqueGeometryValues(geometryVariants, geoemtryElement) {
 
 function populateSelectOptions(selectId, optionValues, isDiameters) {
     const $selectElement = $("#" + selectId);
-    var toolType = $('input[name="toolType"]:checked').val();
 
     if ($selectElement.length) {
         if (isDiameters === true ) {
@@ -146,7 +145,7 @@ function calculatePrice(tool)
 
     if ($("#coating").val() !== "Brak pokrycia") {
         COATING_PRICES.forEach(function(coating) {
-            if ((coating["diameter"] === tool["diameter"]&& coating["name"] === $("#coating").val())) {
+            if ((coating["diameter"] === tool["diameter"]&& coating["code"] === $("#coating").val())) {
                 price += parseFloat(coating["price"]);
             }
         })
@@ -166,7 +165,7 @@ function calculatePrice(tool)
 
 function populateCoating()
 {
-    var coatingTypes = [...new Set(COATING_PRICES.map(item => item['name']))];
+    var coatingTypes = [...new Set(COATING_PRICES.map(item => item['code']))];
 
     populateSelectOptions("coating", coatingTypes, false);
 

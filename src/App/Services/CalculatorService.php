@@ -8,9 +8,7 @@ use Framework\Database;
 
 class CalculatorService
 {
-    public function __construct(private Database $db)
-    {
-    }
+    public function __construct(private Database $db) {}
 
     public function getPriceList()
     {
@@ -36,7 +34,7 @@ class CalculatorService
                 ct.mastermet_name AS name,
                 ct.coating_composition AS composition,
                 cp.diameter AS diameter,
-                cp.price AS price
+                cp.price / 0.6 AS price
             FROM coating_price AS cp
             INNER JOIN coating_type AS ct ON ct.id = cp.id_coating"
         )->findAll();
