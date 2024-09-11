@@ -1,5 +1,5 @@
-const PRICE_LIST = JSON.parse(sessionStorage.getItem("regrindingPrices"));
-const COATING_PRICES = JSON.parse(sessionStorage.getItem("coatingPrices"));
+const PRICE_LIST = JSON.parse(regrindingPricesData);
+const COATING_PRICES = JSON.parse(coatingPricesData);
 
 function populateToolTypes()
 {
@@ -51,24 +51,14 @@ function separateUniqueGeometryValues(geometryVariants, geoemtryElement) {
 
 function populateSelectOptions(selectId, optionValues, isDiameters) {
     const $selectElement = $("#" + selectId);
-    var toolType = $('input[name="toolType"]:checked').val();
 
     if ($selectElement.length) {
-        if ((toolType === "Fazownik" || toolType === "Wiertło Krete") && isDiameters === true ) {
+        if (isDiameters === true ) {
             $.each(optionValues, function(index, option) {
 
-                var text;
-                if (index === 0) {
-                    text = "<" + option;
-                } else if (index === optionValues.length - 1) {
-                    text = ">" + option;
-                } else {
-                    var prevOption = optionValues[index - 1];
-                    text = prevOption + " - " + option; 
-                }
                 $selectElement.append($("<option>", {
                     value: option,
-                    text: text,
+                    text: option,
                     class: selectId
                 }));
             });
@@ -136,13 +126,13 @@ function findTool() {
 
 function calculatePrice(tool)
 {
-    if ($("#faceRegrindingOption").is(":checked") || $("#bodyRegrindingOption").is(":checked")) {
+    if ($("#faceRegrindingOption").is(":checked") || $("#fullRegrindingOption").is(":checked")) {
     var price = 0;
 
     if ($("#faceRegrindingOption").is(":checked")) {
         price = parseFloat(tool['facePrice']);
-    } else if ($("#bodyRegrindingOption").is(":checked")) {
-        price = parseFloat(tool['fullPrice']);
+    } else if ($("#fullRegrindingOption").is(":checked")) {
+        price = parseFloat(tool['peripheryPrice']) + parseFloat(tool['facePrice']);
     } 
 
     if ($('input[name="toolType"]:checked').val() === "Frez Promieniowy") {
@@ -155,7 +145,7 @@ function calculatePrice(tool)
 
     if ($("#coating").val() !== "Brak pokrycia") {
         COATING_PRICES.forEach(function(coating) {
-            if ((coating["diameter"] === tool["diameter"]&& coating["name"] === $("#coating").val())) {
+            if ((coating["diameter"] === tool["diameter"]&& coating["code"] === $("#coating").val())) {
                 price += parseFloat(coating["price"]);
             }
         })
@@ -175,17 +165,18 @@ function calculatePrice(tool)
 
 function populateCoating()
 {
-    var coatingTypes = [...new Set(COATING_PRICES.map(item => item['name']))];
+    var coatingTypes = [...new Set(COATING_PRICES.map(item => item['code']))];
 
     populateSelectOptions("coating", coatingTypes, false);
 
 }
 
+
 function resetFormValues() 
 {
     $("#toolDiameter, #quantity, #discount, #radius, #coating").prop('disabled', true);
     $('#toolDiameter').prop('selectedIndex', 0);
-    $('#faceRegrindingOption, #bodyRegrindingOption').prop('checked', false).prop('disabled', true);
+    $('#faceRegrindingOption, #fullRegrindingOption').prop('checked', false).prop('disabled', true);
     $("#price, #value, #valueDiscounted, #discount").val(0);
     $("#quantity").val(1);
 }
@@ -214,19 +205,30 @@ $("#toolDiameter").change(function() {
     var tool = findTool();
     $('#faceRegrindingOption, #quantity, #discount, #radius, #coating').prop('disabled', false);
 
-    if (tool['fullPrice'] !== null) {
-        $('#bodyRegrindingOption').prop('disabled', false);
+    if (tool['peripheryPrice'] !== null) {
+        $('#fullRegrindingOption').prop('disabled', false);
     }
     calculatePrice(tool);
 
 }) 
 
-$('#faceRegrindingOption, #bodyRegrindingOption, #quantity, #discount, #radius, #coating').change(function() {
+$('#faceRegrindingOption, #fullRegrindingOption, #quantity, #discount, #radius, #coating').change(function() {
     var tool = findTool();
 
     calculatePrice(tool);
 })
 
+$('#radius').on('input', function() {
+    var radiusValue = parseFloat($(this).val());
+    var diameterValue = parseFloat($("#toolDiameter").val());
+    if (radiusValue > 4 || radiusValue > (diameterValue * 0.5)) {
+        if ($('#radiusMessage').length == 0) {
+            $('#radiusContainer').append('<div id="radiusMessage" style="color: red; font-weight: bold;">Promień jest za duży.</div>');
+        }
+    } else {
+        $('#radiusMessage').remove();
+    }
+});
 
     
     
